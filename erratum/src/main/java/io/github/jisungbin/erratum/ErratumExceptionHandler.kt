@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
 class ErratumExceptionHandler(
     application: Application,
     private val defaultExceptionHandler: Thread.UncaughtExceptionHandler?,
-    private val
+    private val registerExceptionActivityIntent: ((thread: Thread, throwable: Throwable, lastActivity: Activity) -> Intent)? = null
 ) : Thread.UncaughtExceptionHandler {
 
     private var activityCount = 0
@@ -20,53 +20,54 @@ class ErratumExceptionHandler(
 
     init {
         application.registerActivityLifecycleCallbacks(object :
-            Application.ActivityLifecycleCallbacks {
+                Application.ActivityLifecycleCallbacks {
 
-            private fun Activity.isExceptionActivity() = this is ErratumExceptionActivity
+                private fun Activity.isExceptionActivity() = this is ErratumExceptionActivity
 
-            private fun registerActivity(activity: Activity) {
-                if (!activity.isExceptionActivity()) {
-                    activityCount++
-                    lastActivity = activity
-                }
-            }
-
-            private fun unregisterActivity(activity: Activity) {
-                if (!activity.isExceptionActivity()) {
-                    if (--activityCount < 0) {
-                        lastActivity = null
+                private fun registerActivity(activity: Activity) {
+                    if (!activity.isExceptionActivity()) {
+                        activityCount++
+                        lastActivity = activity
                     }
                 }
-            }
 
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                registerActivity(activity)
-            }
+                private fun unregisterActivity(activity: Activity) {
+                    if (!activity.isExceptionActivity()) {
+                        if (--activityCount < 0) {
+                            lastActivity = null
+                        }
+                    }
+                }
 
-            override fun onActivityStarted(activity: Activity) {
-                registerActivity(activity)
-            }
+                override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                    registerActivity(activity)
+                }
 
-            override fun onActivityStopped(activity: Activity) {
-                unregisterActivity(activity)
-            }
+                override fun onActivityStarted(activity: Activity) {
+                    registerActivity(activity)
+                }
 
-            override fun onActivityDestroyed(activity: Activity) {}
-            override fun onActivityResumed(activity: Activity) {}
-            override fun onActivityPaused(activity: Activity) {}
-            override fun onActivitySaveInstanceState(
-                activity: Activity,
-                savedInstanceBundle: Bundle
-            ) {
-            }
-        })
+                override fun onActivityStopped(activity: Activity) {
+                    unregisterActivity(activity)
+                }
+
+                override fun onActivityDestroyed(activity: Activity) {}
+                override fun onActivityResumed(activity: Activity) {}
+                override fun onActivityPaused(activity: Activity) {}
+                override fun onActivitySaveInstanceState(
+                    activity: Activity,
+                    savedInstanceBundle: Bundle
+                ) {
+                }
+            })
     }
 
     override fun uncaughtException(thread: Thread, throwable: Throwable) {
         lastActivity?.run {
+            registerExceptionActivityIntent?.invoke(thread, throwable, lastActivity)
             val stringWriter = StringWriter()
             throwable.printStackTrace(PrintWriter(stringWriter))
-            startExceptionActivity(this, stringWriter.toString())
+            startExceptionActivity(activity = this, exceptionString = stringWriter.toString())
         } ?: defaultExceptionHandler?.uncaughtException(thread, throwable)
 
         Process.killProcess(Process.myPid())
