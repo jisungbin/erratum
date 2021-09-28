@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="erratum_error_primary_color">#f06292</color>
+    <color name="erratum_error_primary_dark_color">#ba2d65</color>
+</resources>
