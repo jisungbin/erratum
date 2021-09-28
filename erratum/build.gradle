@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+ext {
+    PUBLISH_GROUP_ID = 'io.github.jisungbin'
+    PUBLISH_VERSION = '1.0.0'
+    PUBLISH_ARTIFACT_ID = 'erratum'
+    PUBLISH_DESCRIPTION = 'Powerful Error Detector for Android'
+    PUBLISH_URL = 'https://github.com/jisungbin/erratum'
+    PUBLISH_LICENSE_NAME = 'MIT License'
+    PUBLISH_LICENSE_URL = 'https://github.com/jisungbin/erratum/blob/master/LICENSE'
+    PUBLISH_DEVELOPER_ID = 'jisungbin'
+    PUBLISH_DEVELOPER_NAME = 'Ji Sungbin'
+    PUBLISH_DEVELOPER_EMAIL = 'ji@sungb.in'
+    PUBLISH_SCM_CONNECTION = 'scm:git:github.com/jisungbin/erratum.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION = 'scm:git:ssh://github.com/jisungbin/erratum.git'
+    PUBLISH_SCM_URL = 'https://github.com/jisungbin/erratum/tree/master'
+}
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.6.0'
+}
