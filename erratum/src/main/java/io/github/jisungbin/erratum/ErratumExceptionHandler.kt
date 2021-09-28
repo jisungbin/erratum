@@ -20,66 +20,67 @@ class ErratumExceptionHandler(
 
     init {
         application.registerActivityLifecycleCallbacks(object :
-                Application.ActivityLifecycleCallbacks {
+            Application.ActivityLifecycleCallbacks {
 
-                private fun registerActivity(activity: Activity) {
-                    if (!activity.isExceptionActivity()) {
-                        activityCount++
-                        lastActivity = activity
+            private fun Activity.isExceptionActivity() = this is ErratumExceptionActivity
+
+            private fun registerActivity(activity: Activity) {
+                if (!activity.isExceptionActivity()) {
+                    activityCount++
+                    lastActivity = activity
+                }
+            }
+
+            private fun unregisterActivity(activity: Activity) {
+                if (!activity.isExceptionActivity()) {
+                    if (--activityCount < 0) {
+                        lastActivity = null
                     }
                 }
+            }
 
-                private fun unregisterActivity(activity: Activity) {
-                    if (!activity.isExceptionActivity()) {
-                        if (--activityCount < 0) {
-                            lastActivity = null
-                        }
-                    }
-                }
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                registerActivity(activity)
+            }
 
-                override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                    registerActivity(activity)
-                }
+            override fun onActivityStarted(activity: Activity) {
+                registerActivity(activity)
+            }
 
-                override fun onActivityStarted(activity: Activity) {
-                    registerActivity(activity)
-                }
+            override fun onActivityStopped(activity: Activity) {
+                unregisterActivity(activity)
+            }
 
-                override fun onActivityStopped(activity: Activity) {
-                    unregisterActivity(activity)
-                }
-
-                override fun onActivityDestroyed(activity: Activity) {}
-                override fun onActivityResumed(activity: Activity) {}
-                override fun onActivityPaused(activity: Activity) {}
-                override fun onActivitySaveInstanceState(
-                    activity: Activity,
-                    savedInstanceBundle: Bundle
-                ) {
-                }
-            })
+            override fun onActivityDestroyed(activity: Activity) {}
+            override fun onActivityResumed(activity: Activity) {}
+            override fun onActivityPaused(activity: Activity) {}
+            override fun onActivitySaveInstanceState(
+                activity: Activity,
+                savedInstanceBundle: Bundle
+            ) {
+            }
+        })
     }
-
-    private fun Activity.isExceptionActivity() = this is ErratumExceptionActivity
 
     override fun uncaughtException(thread: Thread, throwable: Throwable) {
         lastActivity?.run {
             val stringWriter = StringWriter()
             throwable.printStackTrace(PrintWriter(stringWriter))
-            startErrorActivity(this, stringWriter.toString())
+            startExceptionActivity(this, stringWriter.toString())
         } ?: defaultExceptionHandler?.uncaughtException(thread, throwable)
 
         Process.killProcess(Process.myPid())
         exitProcess(-1)
     }
 
-    private fun startErrorActivity(activity: Activity, errorText: String) = activity.run {
-        val errorActivityIntent = Intent(this, DefaultErratumExceptionActivity::class.java).apply {
-            putExtra(ErrorActivity.EXTRA_INTENT, intent)
-            putExtra(ErrorActivity.EXTRA_ERROR_TEXT, errorText)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        }
-        startActivity(errorActivityIntent)
+    private fun startExceptionActivity(activity: Activity, exceptionString: String) = activity.run {
+        val exceptionActivityIntent =
+            Intent(this, DefaultErratumExceptionActivity::class.java).apply {
+                putExtra(ErratumExceptionActivity.EXTRA_LAST_ACTIVITY_INTENT, intent)
+                putExtra(ErratumExceptionActivity.EXTRA_EXCEPTION_STRING, exceptionString)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+        startActivity(exceptionActivityIntent)
         finish()
     }
 }
