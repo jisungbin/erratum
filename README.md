@@ -47,10 +47,14 @@ class App : Application() {
 }
 ```
 
-You can use the following method in `ErratumExceptionActivity`.
+You can use the this method in `ErratumExceptionActivity`.
 
 ```kotlin
-val exceptionString // get exception message
+val exceptionString: String // get exception message
 
 fun openLastActivity() // Closes the current activity and opens the activity before an exception is thrown.
 ```
+
+---
+
+# Happy Coding :)
