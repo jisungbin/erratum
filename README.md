@@ -39,8 +39,8 @@ class App : Application() {
         super.onCreate()
         Erratum.setup(
             application = this,
-            registerExceptionActivityIntent = { thread, throwable, lastActivity -> // added
-                Intent(lastActivity, ErrorActivity::class.java)
+            registerExceptionActivityIntent = { thread, throwable, lastActivity ->
+                Intent(lastActivity, ErrorActivity::class.java) // must return custom exception activity intent
             }
         )
     }
