@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="erratum_activity_exception_toolbar">Exception Detected</string>
-    <string name="erratum_activity_exception_btn_reload">다시 불러오기</string>
+    <string name="erratum_activity_exception_btn_reload">retry</string>
 </resources>
