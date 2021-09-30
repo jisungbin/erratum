@@ -6,6 +6,11 @@ import io.github.jisungbin.erratum.Erratum
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        Erratum.setup(this)
+        Erratum.setup(
+            application = this,
+            /*registerExceptionActivityIntent = { thread, throwable, lastActivity ->
+                Intent(lastActivity, ErrorActivity::class.java)
+            }*/
+        )
     }
 }

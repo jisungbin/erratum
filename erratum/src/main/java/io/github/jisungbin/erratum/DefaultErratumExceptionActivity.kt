@@ -9,11 +9,10 @@ class DefaultErratumExceptionActivity : ErratumExceptionActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.erratum_activity_exception)
 
-        findViewById<TextView>(R.id.tv_exception).text =
-            intent.getStringExtra(EXTRA_EXCEPTION_STRING)
+        findViewById<TextView>(R.id.tv_exception).text = exceptionString
+
         findViewById<Button>(R.id.btn_reload).setOnClickListener {
-            finish()
-            startActivity(intent.getParcelableExtra(EXTRA_LAST_ACTIVITY_INTENT))
+            openLastActivity()
         }
     }
 }

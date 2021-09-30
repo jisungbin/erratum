@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
 class ErratumExceptionHandler(
     application: Application,
     private val defaultExceptionHandler: Thread.UncaughtExceptionHandler?,
-    private val registerExceptionActivityIntent: ((thread: Thread, throwable: Throwable, lastActivity: Activity) -> Intent)? = null
+    private val registerExceptionActivityIntent: ((thread: Thread, throwable: Throwable, lastActivity: Activity) -> Intent)?
 ) : Thread.UncaughtExceptionHandler {
 
     private var activityCount = 0

@@ -7,4 +7,11 @@ abstract class ErratumExceptionActivity : ComponentActivity() {
         const val EXTRA_LAST_ACTIVITY_INTENT = "EXTRA_LAST_ACTIVITY_INTENT"
         const val EXTRA_EXCEPTION_STRING = "EXTRA_EXCEPTION_STRING"
     }
+
+    val exceptionString by lazy { intent.getStringExtra(EXTRA_EXCEPTION_STRING) }
+
+    fun openLastActivity() {
+        finish()
+        startActivity(intent.getParcelableExtra(EXTRA_LAST_ACTIVITY_INTENT))
+    }
 }
