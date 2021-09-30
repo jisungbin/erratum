@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/40740128/135403661-6942d23f-57be-48ba-84c6-01cd253253e3.png" align="right" width="13%"/>
+<img src="https://user-images.githubusercontent.com/40740128/135403661-6942d23f-57be-48ba-84c6-01cd253253e3.png" align="right" width="12%"/>
 
 # Erratum
 Powerful Error Detector for Android
