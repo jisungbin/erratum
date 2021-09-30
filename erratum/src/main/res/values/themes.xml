@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="Theme.Erratum" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/erratum_error_primary_color</item>
-        <item name="colorPrimaryDark">@color/erratum_error_primary_dark_color</item>
-    </style>
-</resources>

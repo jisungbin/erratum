@@ -2,4 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.jisungbin.erratum">
 
+    <application>
+
+        <activity
+            android:name=".DefaultErratumExceptionActivity"
+            android:exported="true" />
+
+    </application>
+
 </manifest>

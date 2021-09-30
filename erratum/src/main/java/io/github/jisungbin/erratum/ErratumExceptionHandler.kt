@@ -64,24 +64,30 @@ class ErratumExceptionHandler(
 
     override fun uncaughtException(thread: Thread, throwable: Throwable) {
         lastActivity?.run {
-            registerExceptionActivityIntent?.invoke(thread, throwable, lastActivity)
-            val stringWriter = StringWriter()
-            throwable.printStackTrace(PrintWriter(stringWriter))
-            startExceptionActivity(activity = this, exceptionString = stringWriter.toString())
+            val exceptionActivityIntent =
+                registerExceptionActivityIntent?.invoke(thread, throwable, lastActivity!!) ?: run {
+                    val stringWriter = StringWriter()
+                    throwable.printStackTrace(PrintWriter(stringWriter))
+                    Intent(this, DefaultErratumExceptionActivity::class.java).apply {
+                        putExtra(ErratumExceptionActivity.EXTRA_LAST_ACTIVITY_INTENT, intent)
+                        putExtra(
+                            ErratumExceptionActivity.EXTRA_EXCEPTION_STRING,
+                            stringWriter.toString()
+                        )
+                    }
+                }
+            launchExceptionActivityIntent(exceptionActivityIntent)
         } ?: defaultExceptionHandler?.uncaughtException(thread, throwable)
 
         Process.killProcess(Process.myPid())
         exitProcess(-1)
     }
 
-    private fun startExceptionActivity(activity: Activity, exceptionString: String) = activity.run {
-        val exceptionActivityIntent =
-            Intent(this, DefaultErratumExceptionActivity::class.java).apply {
-                putExtra(ErratumExceptionActivity.EXTRA_LAST_ACTIVITY_INTENT, intent)
-                putExtra(ErratumExceptionActivity.EXTRA_EXCEPTION_STRING, exceptionString)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            }
-        startActivity(exceptionActivityIntent)
-        finish()
+    private fun launchExceptionActivityIntent(intent: Intent) {
+        val exceptionActivityIntent = intent.apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+        lastActivity!!.startActivity(exceptionActivityIntent)
+        lastActivity!!.finish()
     }
 }
