@@ -47,6 +47,15 @@ class App : Application() {
 }
 ```
 
+> `registerExceptionActivityIntent` example
+>
+> ```kotlin
+> Intent(lastActivity, ExceptionActivity::class.java).apply {
+>     putExtra(ErratumExceptionActivity.EXTRA_EXCEPTION_STRING, throwable.toString())
+>     putExtra(ErratumExceptionActivity.EXTRA_LAST_ACTIVITY_INTENT, lastActivity.intent)
+> }
+> ```
+
 You can use the this method in `ErratumExceptionActivity`.
 
 ```kotlin
