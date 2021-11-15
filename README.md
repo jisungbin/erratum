@@ -47,7 +47,7 @@ class App : Application() {
 }
 ```
 
-> `registerExceptionActivityIntent` example
+> registerExceptionActivityIntent example
 >
 > ```kotlin
 > Intent(lastActivity, ExceptionActivity::class.java).apply {
