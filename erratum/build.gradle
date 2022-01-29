@@ -4,7 +4,7 @@ plugins {
 }
 
 ext {
-    PUBLISH_GROUP_ID = 'land.sungin'
+    PUBLISH_GROUP_ID = 'land.sungbin'
     PUBLISH_VERSION = '1.0.0'
     PUBLISH_ARTIFACT_ID = 'erratum'
     PUBLISH_DESCRIPTION = 'Powerful Error Detector for Android'
