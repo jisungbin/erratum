@@ -6,16 +6,16 @@ Powerful Error Detector for Android
 
 # Preview
 
-If an exception is detected, the exception activity is automatically launched. This activity also contains a button to return to the activity before the exception is thrown.
+If an **unexpected** exception is detected, the exception activity is automatically launched. This activity also contains a button to return to the activity before the exception is thrown.
 
-<img src="https://user-images.githubusercontent.com/40740128/135406648-31d39c80-ada5-4789-8fb2-ecd778cf8b1d.png" width="25%" />
+<img src="https://user-images.githubusercontent.com/40740128/151650056-36271d87-7568-4c6c-b04c-b8ec32f681dd.png" width="20%" />
 
 ---
 
-# Download [![](https://img.shields.io/maven-central/v/io.github.jisungbin/erratum)](https://search.maven.org/artifact/io.github.jisungbin/erratum)
+# Download [![](https://img.shields.io/maven-central/v/land.sungbin/erratum)](https://search.maven.org/artifact/land.sungbin/erratum) ![](https://img.shields.io/badge/API-18%2B-brightgreen.svg)
 
 ```groovy
-implementation "io.github.jisungbin:erratum:${version}"
+implementation "land.sungbin:erratum:${version}"
 ```
 
 # Usage
@@ -31,7 +31,7 @@ class App : Application() {
 
 # Customize
 
-You can customize the exception activity. In this case, you must unconditionally make your own exception activity extend `ErratumExceptionActivity`.
+You can customize the exception activity. In this case, you should make your own exception activity extend `ErratumExceptionActivity`.
 
 ```kotlin
 class App : Application() {
@@ -40,7 +40,7 @@ class App : Application() {
         Erratum.setup(
             application = this,
             registerExceptionActivityIntent = { thread, throwable, lastActivity ->
-                Intent(lastActivity, ErrorActivity::class.java) // must return custom exception activity intent
+                Intent(lastActivity, ErrorActivity::class.java) // should return custom exception activity intent
             }
         )
     }
@@ -60,7 +60,6 @@ You can use the this method in `ErratumExceptionActivity`.
 
 ```kotlin
 val exceptionString: String // get exception message
-
 fun openLastActivity() // Closes the current activity and opens the activity before an exception is thrown.
 ```
 
