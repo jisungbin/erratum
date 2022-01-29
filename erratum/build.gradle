@@ -25,7 +25,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        minSdk 19
+        minSdk 18
         targetSdk 31
     }
 
