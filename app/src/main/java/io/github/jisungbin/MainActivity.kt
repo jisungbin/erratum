@@ -19,8 +19,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Button(onClick = { listOf(1)[2] }) {}
-                    Text(text = stringResource(R.string.app_name))
+                    Button(onClick = { listOf(1)[2] }) {
+                        Text(text = stringResource(R.string.app_name))
+                    }
                 }
             }
         }
