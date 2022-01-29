@@ -12,7 +12,7 @@ If an **unexpected** exception is detected, the exception activity is automatica
 
 ---
 
-# Download [![](https://img.shields.io/maven-central/v/land.sungbin/erratum)](https://search.maven.org/artifact/land.sungbin/erratum)
+# Download [![](https://img.shields.io/maven-central/v/land.sungbin/erratum)](https://search.maven.org/artifact/land.sungbin/erratum) ![](https://img.shields.io/badge/API-18%2B-brightgreen.svg)
 
 ```groovy
 implementation "land.sungbin:erratum:${version}"
