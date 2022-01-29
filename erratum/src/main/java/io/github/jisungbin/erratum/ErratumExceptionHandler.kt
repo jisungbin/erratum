@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
 class ErratumExceptionHandler(
     application: Application,
     private val defaultExceptionHandler: Thread.UncaughtExceptionHandler?,
-    private val registerExceptionActivityIntent: ((thread: Thread, throwable: Throwable, lastActivity: Activity) -> Intent)?
+    private val registerExceptionActivityIntent: ((thread: Thread, throwable: Throwable, lastActivity: Activity) -> Intent)?,
 ) : Thread.UncaughtExceptionHandler {
 
     private var activityCount = 0
@@ -56,7 +56,7 @@ class ErratumExceptionHandler(
                 override fun onActivityPaused(activity: Activity) {}
                 override fun onActivitySaveInstanceState(
                     activity: Activity,
-                    savedInstanceBundle: Bundle
+                    savedInstanceBundle: Bundle,
                 ) {
                 }
             })

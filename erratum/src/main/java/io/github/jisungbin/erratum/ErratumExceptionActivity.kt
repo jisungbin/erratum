@@ -11,7 +11,7 @@ abstract class ErratumExceptionActivity : ComponentActivity() {
     val exceptionString by lazy { intent.getStringExtra(EXTRA_EXCEPTION_STRING) }
 
     fun openLastActivity() {
-        finish()
         startActivity(intent.getParcelableExtra(EXTRA_LAST_ACTIVITY_INTENT))
+        finish()
     }
 }

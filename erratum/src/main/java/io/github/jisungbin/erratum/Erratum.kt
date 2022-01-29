@@ -12,7 +12,7 @@ import android.content.Intent
 object Erratum {
     fun setup(
         application: Application,
-        registerExceptionActivityIntent: ((thread: Thread, throwable: Throwable, lastActivity: Activity) -> Intent)? = null
+        registerExceptionActivityIntent: ((thread: Thread, throwable: Throwable, lastActivity: Activity) -> Intent)? = null,
     ) {
         val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler(null) // 기존 핸들러 제거
