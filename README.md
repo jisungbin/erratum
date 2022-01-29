@@ -1,10 +1,10 @@
 <img src="https://user-images.githubusercontent.com/40740128/135403661-6942d23f-57be-48ba-84c6-01cd253253e3.png" align="right" width="12%"/>
 
-# Erratum
+## Erratum
 
 Powerful Error Detector for Android
 
-# Preview
+## Preview
 
 If an **unexpected** exception is detected, the exception activity is automatically launched. This activity also contains a button to return to the activity before the exception is thrown.
 
@@ -12,13 +12,13 @@ If an **unexpected** exception is detected, the exception activity is automatica
 
 ---
 
-# Download [![](https://img.shields.io/maven-central/v/land.sungbin/erratum)](https://search.maven.org/artifact/land.sungbin/erratum) ![](https://img.shields.io/badge/API-14%2B-brightgreen.svg)
+## Download [![](https://img.shields.io/maven-central/v/land.sungbin/erratum)](https://search.maven.org/artifact/land.sungbin/erratum) ![](https://img.shields.io/badge/API-14%2B-brightgreen.svg)
 
 ```groovy
 implementation "land.sungbin:erratum:${version}"
 ```
 
-# Usage
+## Usage
 
 ```kotlin
 class App : Application() {
@@ -29,7 +29,7 @@ class App : Application() {
 }
 ```
 
-# Customize
+## Customize
 
 You can customize the exception activity. In this case, you should make your own exception activity extend `ErratumExceptionActivity`.
 
@@ -65,4 +65,4 @@ fun openLastActivity() // Closes the current activity and opens the activity bef
 
 ---
 
-# Happy Coding :)
+## Happy Coding :)
