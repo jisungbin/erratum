@@ -63,6 +63,16 @@ val exceptionString: String // get exception message
 fun openLastActivity() // Closes the current activity and opens the activity before an exception is thrown.
 ```
 
+#### The style on this component requires your app theme to be Theme.AppCompat (or a descendant)
+
+Use custom ActivityIntent or set the theme of DefaultErratumExceptionActivity like this:
+
+```xml
+<activity
+    android:name="io.github.jisungbin.erratum.DefaultErratumExceptionActivity"
+    android:theme="@style/Theme.RunnerBe" /> 
+```
+
 ---
 
 ## Happy Coding :)
